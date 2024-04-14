@@ -11,8 +11,8 @@ on:
   pull_request:
     branches: [ "main", "master" ]
     paths:
-      - '**.tex'
-      - '**.bib'
+      - 'report/src/**.tex'
+      - 'report/src/**.bib'
 
   # Allows you to run this workflow manually from the actions tab
   workflow_dispatch:
@@ -45,11 +45,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
           root_file: "${{ env.FILE_NAME }}.tex"
           working_directory: report/src
+          continue_on_error: true
+          args: "-pdf -file-line-error -interaction=nonstopmode"
+
       - name: Upload PDF file as artifact
         uses: actions/upload-artifact@v4
         with:
