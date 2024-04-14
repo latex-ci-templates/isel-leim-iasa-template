@@ -1,9 +1,9 @@
 name: Compile and build all latex documents
 
 on:
-  # Triggers this workflow on push or pull request events but only for the default branch (usually main or master)
+  # Triggers this workflow on push or pull request events but only for the default branch
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "develop" ]
     # Only run the workflow if there are changes made to the following file types
     paths:
       - '**.tex'
