@@ -4,15 +4,9 @@ on:
   # Triggers this workflow on push or pull request events but only for the default branch
   push:
     branches: [ "main", "master", "develop" ]
-    # Only run the workflow if there are changes made to the following file types
-    paths:
-      - '**.tex'
-      - '**.bib'
+
   pull_request:
     branches: [ "main", "master" ]
-    paths:
-      - 'report/src/**.tex'
-      - 'report/src/**.bib'
 
   # Allows you to run this workflow manually from the actions tab
   workflow_dispatch:
