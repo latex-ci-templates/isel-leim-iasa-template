@@ -1,0 +1,59 @@
+name: Compile and build all latex documents
+
+on:
+  # Triggers this workflow on push or pull request events but only for the default branch (usually main or master)
+  push:
+    branches: [ "main", "master" ]
+    # Only run the workflow if there are changes made to the following file types
+    paths:
+      - '**.tex'
+      - '**.bib'
+  pull_request:
+    branches: [ "main", "master" ]
+    paths:
+      - '**.tex'
+      - '**.bib'
+
+  # Allows you to run this workflow manually from the actions tab
+  workflow_dispatch:
+
+# Defines concurrent policies for the workflow, for example, if a commit is made while
+# the workflow is running, should the current run be cancelled or should the new run be queued
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FILE_NAME: "main"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # The permissions that the GitHub token has
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: "${{ env.FILE_NAME }}.tex"
+          working_directory: report/src
+      - name: Upload PDF file as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF
+          path: report/out/${{ env.FILE_NAME }}.pdf
+          if-no-files-found: 'error'
+          overwrite: 'true'
