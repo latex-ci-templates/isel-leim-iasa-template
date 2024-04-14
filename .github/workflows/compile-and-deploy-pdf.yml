@@ -109,3 +109,11 @@ jobs:
           cd ..
           cd ${{ env.LATEX_SOURCE_DIR }}
           mv ${{ env.FILE_NAME }}.pdf ../${{ env.PDF_OUTPUT_DIR }}
+
+      # Commit all changed files back to the repository
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: '*.pdf'
+          message: '🔄 ci(report): compiles latex document'
+          default_author: github_actions
