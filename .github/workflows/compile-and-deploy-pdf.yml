@@ -4,9 +4,15 @@ on:
   # Triggers the workflow on push or pull request events but only for the default branch
   push:
     branches: [ "main", "master" ]
+    paths:
+      - 'report/**'
+      - '.github/workflows/**'
 
   pull_request:
     branches: [ "main", "master" ]
+    paths:
+      - 'report/**'
+      - '.github/workflows/**'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
