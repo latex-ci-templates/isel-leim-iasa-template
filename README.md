@@ -1,4 +1,4 @@
-# isel-iasa-template
+# isel-leim-iasa-template
 
 **Unofficial** template for [ISEL](https://www.isel.pt/)'s [IASA](https://www.isel.pt/leim/inteligencia-artificial-para-sistemas-autonomos) course project.
 
